@@ -16,6 +16,10 @@ object Matrix {
     Matrix(rows)
   }
 
+  def zero[A](numRow: Int, numCol: Int)(implicit e: Numeric[A]): Matrix[A] = {
+    Matrix(Vector.fill(numRow, numCol)(e.zero))
+  }
+
 }
 
 trait MatrixSyntax {

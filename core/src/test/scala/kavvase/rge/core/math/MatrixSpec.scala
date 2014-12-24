@@ -47,6 +47,11 @@ class MatrixSpec extends Specification {
       Matrix.diagonal(elements) mustEqual Matrix(Vector(Vector(1, 0, 0), Vector(0, 2, 0), Vector(0, 0, 3)))
     }
 
+    "create zero matrix with given number of rows and columns" in {
+      Matrix.zero[Int](1, 2) mustEqual Matrix(Vector(Vector(0, 0)))
+      Matrix.zero[Int](2, 1) mustEqual Matrix(Vector(Vector(0), Vector(0)))
+    }
+
   }
 
 }
