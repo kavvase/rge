@@ -10,7 +10,9 @@ sealed trait RGE[A <: GaugeTheory[B, Susy, Soft], B, Susy[_], Soft[_], C <: Loop
 
 object RGE {
 
-  implicit def MSSMOneLoopRGE[A](implicit e: Numeric[A]): RGE[MSSM[A], A, MSSMSusyParams, MSSMSoftParams, OneLoop] = {
+  implicit def MSSMOneLoopRGE[A](implicit
+                                 e: Numeric[A],
+                                 const: Constants[A]): RGE[MSSM[A], A, MSSMSusyParams, MSSMSoftParams, OneLoop] = {
     new RGE[MSSM[A], A, MSSMSusyParams, MSSMSoftParams, OneLoop] {
 
       def susyRGE(theory: MSSM[A]): MSSMSusyParams[A] = {

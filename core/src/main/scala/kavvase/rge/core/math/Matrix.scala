@@ -1,5 +1,7 @@
 package kavvase.rge.core.math
 
+import scalaz.{Equal, Functor}
+
 case class Matrix[A](rows: Vector[Vector[A]]) {
 
   def transpose: Matrix[A] = Matrix(rows.transpose)
@@ -18,6 +20,20 @@ object Matrix {
 
   def zero[A](numRow: Int, numCol: Int)(implicit e: Numeric[A]): Matrix[A] = {
     Matrix(Vector.fill(numRow, numCol)(e.zero))
+  }
+
+  implicit def MatrixEqual[A](implicit e: Numeric[A]): Equal[Matrix[A]] = new Equal[Matrix[A]] {
+
+    def equal(a1: Matrix[A], a2: Matrix[A]): Boolean = a1.rows == a2.rows
+
+  }
+
+  implicit object MatrixFunctor extends Functor[Matrix] {
+
+    def map[A, B](fa: Matrix[A])(f: (A) => B): Matrix[B] = {
+      Matrix(fa.rows.map(_.map(f)))
+    }
+
   }
 
 }
