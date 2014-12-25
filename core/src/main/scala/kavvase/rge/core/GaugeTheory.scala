@@ -6,14 +6,6 @@ import scalaz.Monoid
 
 sealed trait GaugeTheory[A, Susy[_], Soft[_]] {
 
-  implicit val susyMonoid: Monoid[Susy[A]]
-
-  implicit val susyVectorable: Vectorable[Susy]
-
-  implicit val softMonoid: Monoid[Soft[A]]
-
-  implicit val softVectorable: Vectorable[Soft]
-
   val susyParams: Susy[A]
 
   val softParams: Soft[A]
@@ -31,18 +23,7 @@ trait Vectorable[A[_]] {
 case class MSSM[A](
   susyParams: MSSMSusyParams[A],
   softParams: MSSMSoftParams[A]
-)(implicit e: Numeric[A]) extends GaugeTheory[A, MSSMSusyParams, MSSMSoftParams] {
-
-  val susyMonoid = implicitly[Monoid[MSSMSusyParams[A]]]
-
-  val susyVectorable = implicitly[Vectorable[MSSMSusyParams]]
-
-  val softMonoid = implicitly[Monoid[MSSMSoftParams[A]]]
-
-  val softVectorable = implicitly[Vectorable[MSSMSoftParams]]
-
-}
-
+) extends GaugeTheory[A, MSSMSusyParams, MSSMSoftParams]
 
 case class MSSMSusyParams[A](
   g1: A,
@@ -116,9 +97,9 @@ object MSSMSusyParams {
         a.yU.rows(0)(0), a.yU.rows(0)(1), a.yU.rows(0)(2),
         a.yU.rows(1)(0), a.yU.rows(1)(1), a.yU.rows(1)(2),
         a.yU.rows(2)(0), a.yU.rows(2)(1), a.yU.rows(2)(2),
-        a.yD.rows(0)(0), a.yD.rows(0)(1), a.yU.rows(0)(2),
-        a.yD.rows(1)(0), a.yD.rows(1)(1), a.yU.rows(1)(2),
-        a.yD.rows(2)(0), a.yD.rows(2)(1), a.yU.rows(2)(2),
+        a.yD.rows(0)(0), a.yD.rows(0)(1), a.yD.rows(0)(2),
+        a.yD.rows(1)(0), a.yD.rows(1)(1), a.yD.rows(1)(2),
+        a.yD.rows(2)(0), a.yD.rows(2)(1), a.yD.rows(2)(2),
         a.yE.rows(0)(0), a.yE.rows(0)(1), a.yE.rows(0)(2),
         a.yE.rows(1)(0), a.yE.rows(1)(1), a.yE.rows(1)(2),
         a.yE.rows(2)(0), a.yE.rows(2)(1), a.yE.rows(2)(2),
