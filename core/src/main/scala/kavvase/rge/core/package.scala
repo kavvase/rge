@@ -1,6 +1,6 @@
 package kavvase.rge
 
-import kavvase.rge.core.math.MatrixSyntax
+import kavvase.rge.core.math.{NumericSyntax, MatrixSyntax}
 
 package object core {
 

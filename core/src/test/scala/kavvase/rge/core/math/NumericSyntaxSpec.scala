@@ -1,4 +1,4 @@
-package kavvase.rge.core
+package kavvase.rge.core.math
 
 import org.specs2.mutable.Specification
 
