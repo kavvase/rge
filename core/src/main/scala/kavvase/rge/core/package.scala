@@ -6,4 +6,6 @@ package object core {
 
   object matrix extends MatrixSyntax
 
+  object numeric extends NumericSyntax
+
 }
