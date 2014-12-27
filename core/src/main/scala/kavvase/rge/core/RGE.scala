@@ -1,19 +1,17 @@
 package kavvase.rge.core
 
-sealed trait RGE[A <: GaugeTheory[B, Susy, Soft], B, Susy[_], Soft[_], C <: LoopOrder] {
+sealed trait RGE[T <: GaugeTheory[A], A, B <: LoopOrder] {
 
-  def susyRGE(theory: A): Susy[B]
+  def susyRGE(theory: T): T#Susy[A]
 
-  def softRGE(theory: A): Soft[B]
+  def softRGE(theory: T): T#Soft[A]
 
 }
 
 object RGE {
 
-  implicit def MSSMOneLoopRGE[A](implicit
-                                 e: Numeric[A],
-                                 const: Constants[A]): RGE[MSSM[A], A, MSSMSusyParams, MSSMSoftParams, OneLoop] = {
-    new RGE[MSSM[A], A, MSSMSusyParams, MSSMSoftParams, OneLoop] {
+  implicit def MSSMOneLoopRGE[A](implicit e: Numeric[A], const: Constants[A]): RGE[MSSM[A], A, OneLoop] = {
+    new RGE[MSSM[A], A, OneLoop] {
 
       def susyRGE(theory: MSSM[A]): MSSMSusyParams[A] = {
         MSSMSusyParams[A](

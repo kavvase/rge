@@ -4,7 +4,11 @@ import kavvase.rge.core.math.Matrix
 
 import scalaz.Monoid
 
-sealed trait GaugeTheory[A, Susy[_], Soft[_]] {
+sealed trait GaugeTheory[A] {
+
+  type Susy[_]
+
+  type Soft[_]
 
   val susyParams: Susy[A]
 
@@ -12,18 +16,24 @@ sealed trait GaugeTheory[A, Susy[_], Soft[_]] {
 
 }
 
-trait Vectorable[A[_]] {
+trait Vectorable[V[_]] {
 
-  def fromVector[B](v: Vector[B]): A[B]
+  def fromVector[B](v: Vector[B]): V[B]
 
-  def toVector[B](a: A[B]): Vector[B]
+  def toVector[B](a: V[B]): Vector[B]
 
 }
 
 case class MSSM[A](
   susyParams: MSSMSusyParams[A],
   softParams: MSSMSoftParams[A]
-) extends GaugeTheory[A, MSSMSusyParams, MSSMSoftParams]
+) extends GaugeTheory[A] {
+
+  type Susy[_] = MSSMSusyParams[_]
+
+  type Soft[_] = MSSMSoftParams[_]
+
+}
 
 case class MSSMSusyParams[A](
   g1: A,
